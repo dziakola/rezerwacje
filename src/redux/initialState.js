@@ -1,6 +1,3 @@
-const initialState = {
-    //dane pobierane z serwera
-    tables:[],
-}
+const initialState = null;
 
 export default initialState;

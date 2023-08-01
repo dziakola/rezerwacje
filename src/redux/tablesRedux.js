@@ -1,4 +1,5 @@
 import { API_URL } from '../config';
+import initialState from './initialState';
 
 // actions
 const createActionName = actionName => `app/tables/${actionName}`;
@@ -73,18 +74,24 @@ export const addTableRequest = (newTable) => {
 } */
 export const removeTableRequest = (id) => {
   return (dispatch) => {
-    const removedId = {id};
-
     const options = {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(removedId),
-    }
+    };
     fetch(`${API_URL}/tables/${id}`, options)
-      .then((res) => res.json())
-      .then((table) => dispatch(removeTable(id)))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Something went wrong');
+        }
+        return res.json(); // Zwróć sparsowaną odpowiedź JSON
+      })
+      .then((data) => {
+        // Wyślij akcję removeTable z pełnym obiektem tabeli jako payloadem
+        dispatch(removeTable(data));
+      })
+      .catch(error => console.log("Error: ", error));
   };
 };
 
@@ -108,7 +115,7 @@ export const changeTableRequest = (editedTable) => {
   }
 }
 
-const tablesReducer = (statePart = [], action) => {
+const tablesReducer = (statePart = initialState, action) => {
   switch (action.type) {
     case UPDATE_TABLES:
       return [...action.payload]
