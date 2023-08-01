@@ -84,7 +84,7 @@ export const removeTableRequest = (id) => {
     }
     fetch(`${API_URL}/tables/${id}`, options)
       .then((res) => res.json())
-      .then((table) => dispatch(removeTable(removedId)))
+      .then((table) => dispatch(removeTable(table)))
   };
 };
 
@@ -115,7 +115,7 @@ const tablesReducer = (statePart = [], action) => {
     case ADD_TABLE:
       return [...statePart, { ...action.payload }]
     case REMOVE_TABLE:
-      return statePart.filter((table) => table.id !== action.payload);
+      return statePart.filter((table) => table.id !== action.payload.id);
     case EDIT_TABLE:
       return statePart.map((table) =>
         table.id === action.payload.id ? { ...table, ...action.payload } : table
