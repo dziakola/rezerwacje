@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 const TableAdd = props => {
     const id = useSelector(getAllTables).map(table=>table.id);
-    const newId = parseInt(id[id.length-1] + 1);
+    const newId = id[id.length-1] + 1;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleSubmit = e => {
