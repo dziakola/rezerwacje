@@ -88,7 +88,7 @@ export const removeTableRequest = (id) => {
         return res.json();
       })
       .then((data) => {
-        dispatch(removeTable(id)); // Przekazujemy tylko id jako payload
+        dispatch(removeTableRequest(id)); // Przekazujemy tylko id jako payload
       })
       .catch(error => console.log("Error: ", error));
   };
