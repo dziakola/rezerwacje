@@ -85,15 +85,15 @@ export const removeTableRequest = (id) => {
         if (!res.ok) {
           throw new Error('Something went wrong');
         }
-        return res.json(); // Zwróć sparsowaną odpowiedź JSON
+        return res.json();
       })
       .then((data) => {
-        // Wyślij akcję removeTable z pełnym obiektem tabeli jako payloadem
-        dispatch(removeTable(data));
+        dispatch(removeTable(id)); // Przekazujemy tylko id jako payload
       })
       .catch(error => console.log("Error: ", error));
   };
 };
+
 
 export const changeTableRequest = (editedTable) => {
   return (dispatch) => {
