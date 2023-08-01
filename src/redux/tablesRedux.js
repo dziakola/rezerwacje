@@ -84,7 +84,8 @@ export const removeTableRequest = (id) => {
     }
     fetch(`${API_URL}/tables/${id}`, options)
       .then((res) => res.json())
-      .then((table) => dispatch(()=>removeTable(table.id)));
+      .then(table=> console.log(table))
+      .then((table) => dispatch(removeTable(table.id)))
   };
 };
 
