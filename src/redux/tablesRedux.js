@@ -118,18 +118,19 @@ export const changeTableRequest = (editedTable) => {
 const tablesReducer = (statePart = initialState, action) => {
   switch (action.type) {
     case UPDATE_TABLES:
-      return [...action.payload]
+      return action.payload; // Aktualizujemy stan tabel za pomocą nowych danych z payloadu
     case ADD_TABLE:
-      return [...statePart, { ...action.payload }]
+      return statePart === null ? [action.payload] : [...statePart, { ...action.payload }]; // Dodajemy nową tabelę do istniejących danych
     case REMOVE_TABLE:
-      return statePart.filter((table) => table.id !== action.payload.id);
+      return statePart === null ? null : statePart.filter((table) => table.id !== action.payload); // Usuwamy tabelę na podstawie przekazanego ID
     case EDIT_TABLE:
-      return statePart.map((table) =>
+      return statePart === null ? null : statePart.map((table) =>
         table.id === action.payload.id ? { ...table, ...action.payload } : table
-      );
+      ); // Edytujemy tabelę na podstawie przekazanych zmian
     default:
       return statePart;
-  };
+  }
 };
 
 export default tablesReducer;
+
