@@ -20,7 +20,7 @@ const TableList = () => {
         const handleSubmit = (e, id) => {
         e.preventDefault();
         console.log(id);
-        dispatch(removeTableRequest(`${id}`));
+        dispatch(removeTableRequest(id));
         navigate('/');
     }
     return(
